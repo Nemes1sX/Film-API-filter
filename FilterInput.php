@@ -24,11 +24,11 @@
                let filmTitle = $('#FilmTitle').val();
                let filmRunningTime1 = $('#FilmRunningTime1').val();
                let filmRunningTime2 = $('#FilmRunningTime2').val();
-               let queryString = "?filmtitle=" + filmTitle + "&runningtime1=" + filmRunningTime2 + "&runningtime2=" + filmRunningTime2;
+               let queryString = "?filmTitle=" + filmTitle + "&runningtime1=" + filmRunningTime2 + "&runningtime2=" + filmRunningTime2;
                console.log([filmTitle, filmRunningTime1, filmRunningTime2]);
                $.ajax({
                     type: 'GET',
-                    url: url,
+                    url: url + queryString,
                     datatype: 'json',
                     success: function (result) {
                         console.log(result);
