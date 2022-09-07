@@ -21,10 +21,10 @@
         $(document).ready(function () {
            $('#SubmitFilter').click(function () {
                const url = 'filmsFilter.php';
-               let rowCount = $('#tableResults  tbody  tr').length;
-               console.log(rowCount);
+               let rowCount = $('#tableResults tbody  tr').length;
                if (rowCount >= 1) {
-                   $('#tableResults  tbody tr').html();
+                   console.log('true');
+                   $('#tableResults tbody tr > td').remove();
                }
                let filmTitle = $('#FilmTitle').val();
                let filmRunningTimeStartInterval = $('#FilmRunningTimeStartInterval').val();

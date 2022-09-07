@@ -36,18 +36,17 @@ if (strlen($_GET['filmRunningTimeStartInterval']) > 0 && $_GET['filmRunningTimeS
     strlen($_GET['filmRunningTimeEndInterval']) > 0 && $_GET['filmRunningTimeEndInterval'] != '') {
     $response = filterWithStartAndEndRunningTimeIntervals($response);
 }
-elseif (strlen($_GET['filmRunningTimeStartInterval']) > 0 && $_GET['filmRunningTimeStartInterval'] != '' &&
-    strlen($_GET['filmRunningTimeEndInterval']) == 0 && $_GET['filmRunningTimeEndInterval'] == '') {
+elseif (strlen($_GET['filmRunningTimeStartInterval']) > 0 && $_GET['filmRunningTimeStartInterval'] != '' ) {
     $filmRunningTimeStartInterval = (int) $_GET['filmRunningTimeStartInterval'];
     $response = array_filter($response, function ($var) use ($filmRunningTimeStartInterval) {
         return ((int)$var->running_time >= $filmRunningTimeStartInterval);
     });
 }
-elseif (strlen($_GET['filmRunningTimeStartInterval']) == 0 && $_GET['filmRunningTimeStartInterval'] == '' &&
-    strlen($_GET['filmRunningTimeEndInterval']) > 0 && $_GET['filmRunningTimeEndInterval'] != '') {
+elseif (strlen($_GET['filmRunningTimeEndInterval']) > 0 && $_GET['filmRunningTimeEndInterval'] != '' ) {
     $filmRunningTimeEndInterval = (int) $_GET['filmRunningTimeEndInterval'];
     $response = array_filter($response, function ($var) use ($filmRunningTimeEndInterval) {
         return ((int)$var->running_time <= $filmRunningTimeEndInterval);
     });
 }
+
 echo json_encode($response);
