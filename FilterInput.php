@@ -32,7 +32,20 @@
                     datatype: 'json',
                     success: function (result) {
                         console.log(result);
-                    }
+                        let tableData = "";
+                        $.each(JSON.parse(result), function (index, data) {
+                           tableData += "<tr>";
+                           tableData += '<td><img src="'+data.image+'" alt="Image" width="150" height="150"></td>';
+                           tableData += "<td>" + data.title +  "</td>";
+                           tableData += "<td>" + data.running_time + "</td>";
+                           tableData += "<td>" + data.description + "</td>";
+                           tableData += "</tr>";
+                        });
+                        $('#tableResults').append(tableData);
+                    },
+                   error: function(e){
+                       console.log(e);
+                   }
                });
            })
         });
@@ -54,7 +67,18 @@
         <input type="email" class="form-control" id="FilmRunningTime2" placeholder="120">
     </div>
     <button type="submit" class="btn btn-success" id="SubmitFilter">Submit</button>
-    <div id="Results"></div>
+    <div id="Results">
+        <table class="table table-responsive" id="tableResults">
+            <thead>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Running time (min)</th>
+                <th>Description</th>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>
