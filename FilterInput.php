@@ -21,11 +21,16 @@
         $(document).ready(function () {
            $('#SubmitFilter').click(function () {
                const url = 'filmsFilter.php';
+               let rowCount = $('#tableResults  tbody  tr').length;
+               console.log(rowCount);
+               if (rowCount >= 1) {
+                   $('#tableResults  tbody tr').html();
+               }
                let filmTitle = $('#FilmTitle').val();
-               let filmRunningTime1 = $('#FilmRunningTime1').val();
-               let filmRunningTime2 = $('#FilmRunningTime2').val();
-               let queryString = "?filmTitle=" + filmTitle + "&runningtime1=" + filmRunningTime2 + "&runningtime2=" + filmRunningTime2;
-               console.log([filmTitle, filmRunningTime1, filmRunningTime2]);
+               let filmRunningTimeStartInterval = $('#FilmRunningTimeStartInterval').val();
+               let filmRunningTimeEndInterval = $('#FilmRunningTimeEndInterval').val();
+               let queryString = "?filmTitle=" + filmTitle + "&filmRunningTimeStartInterval=" +
+                   filmRunningTimeStartInterval + "&filmRunningTimeEndInterval=" + filmRunningTimeEndInterval;
                $.ajax({
                     type: 'GET',
                     url: url + queryString,
@@ -59,12 +64,12 @@
         <input type="email" class="form-control" id="FilmTitle" placeholder="Example">
     </div>
     <div class="mb-3">
-        <label for="FilmRunningTime1" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="FilmRunningTime1" placeholder="90">
+        <label for="FilmRunningTime1" class="form-label">Film running time start interval</label>
+        <input type="number" class="form-control" id="FilmRunningTimeStartInterval" placeholder="90" min="60">
     </div>
     <div class="mb-3">
-        <label for="FilmRunningTime2" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="FilmRunningTime2" placeholder="120">
+        <label for="FilmRunningTime2" class="form-label">Film running time end interval</label>
+        <input type="number" class="form-control" id="FilmRunningTimeEndInterval" placeholder="120" max="200">
     </div>
     <button type="submit" class="btn btn-success" id="SubmitFilter">Submit</button>
     <div id="Results">
