@@ -1,10 +1,5 @@
 <?php
 
-function startsWith($string, $startString) {
-    $len = strlen($startString);
-    return (substr($string, 0, $len) === $startString);
-}
-
 function filterWithStartAndEndRunningTimeIntervals($response)
 {
     $filmRunningTimeStartInterval = (int) $_GET['filmRunningTimeStartInterval'];
@@ -28,21 +23,21 @@ if (strlen($_GET['filmTitle']) > 0 && $_GET['filmTitle'] != '') {
     $filmTitle = $_GET['filmTitle'];
     $response = array_filter($response,
         function ($var) use ($filmTitle) {
-            return (startsWith($var->title, $filmTitle) == true);
+            return (str_starts_with($var->title, $filmTitle) == true);
     }
     );
 }
-if (strlen($_GET['filmRunningTimeStartInterval']) > 0 && $_GET['filmRunningTimeStartInterval'] != '' &&
-    strlen($_GET['filmRunningTimeEndInterval']) > 0 && $_GET['filmRunningTimeEndInterval'] != '') {
+if (strlen($_GET['filmRunningTimeStartInterval']) > 0 && !empty($_GET['filmRunningTimeStartInterval']) &&
+    strlen($_GET['filmRunningTimeEndInterval']) > 0 && !empty($_GET['filmRunningTimeEndInterval'])) {
     $response = filterWithStartAndEndRunningTimeIntervals($response);
 }
-elseif (strlen($_GET['filmRunningTimeStartInterval']) > 0 && $_GET['filmRunningTimeStartInterval'] != '' ) {
+elseif (strlen($_GET['filmRunningTimeStartInterval']) > 0 && !empty($_GET['filmRunningTimeStartInterval'])) {
     $filmRunningTimeStartInterval = (int) $_GET['filmRunningTimeStartInterval'];
     $response = array_filter($response, function ($var) use ($filmRunningTimeStartInterval) {
         return ((int)$var->running_time >= $filmRunningTimeStartInterval);
     });
 }
-elseif (strlen($_GET['filmRunningTimeEndInterval']) > 0 && $_GET['filmRunningTimeEndInterval'] != '' ) {
+elseif (strlen($_GET['filmRunningTimeEndInterval']) > 0 && !empty($_GET['filmRunningTimeEndInterval'])) {
     $filmRunningTimeEndInterval = (int) $_GET['filmRunningTimeEndInterval'];
     $response = array_filter($response, function ($var) use ($filmRunningTimeEndInterval) {
         return ((int)$var->running_time <= $filmRunningTimeEndInterval);
